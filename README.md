@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SimpleCar
 
 一个 Minecraft **Fabric 1.20.4** 模组，添加可驾驶的小汽车（类似可骑乘生物）。
@@ -55,3 +56,6 @@ python texture_gen.py
 ## 许可证
 
 MIT
+=======
+# SimpleCar
+>>>>>>> d7bb4bc864031c85b086f2f853c47c4b8f435c09
