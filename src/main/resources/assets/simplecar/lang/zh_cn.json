@@ -1,0 +1,7 @@
+{
+  "entity.simplecar.car": "小汽车",
+  "item.simplecar.car": "小汽车",
+  "item.simplecar.car_spawn_egg": "小汽车刷怪蛋",
+  "itemGroup.simplecar": "SimpleCar 载具",
+  "message.simplecar.speed_set": "车速已设置为每秒 %s 格"
+}

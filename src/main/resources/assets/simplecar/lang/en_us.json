@@ -1,0 +1,7 @@
+{
+  "entity.simplecar.car": "Car",
+  "item.simplecar.car": "Car",
+  "item.simplecar.car_spawn_egg": "Car Spawn Egg",
+  "itemGroup.simplecar": "SimpleCar",
+  "message.simplecar.speed_set": "Car speed set to %s blocks per second"
+}

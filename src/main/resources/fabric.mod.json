@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "simplecar",
+  "version": "${version}",
+  "name": "SimpleCar",
+  "description": "Adds a simple drivable car. Right-click a car to hop in, then drive with W/A/S/D like riding a horse.",
+  "authors": [
+    "mzycAB"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/simplecar/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "simple.car.SimpleCar"
+    ],
+    "client": [
+      "simple.car.client.SimpleCarClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": "1.20.4",
+    "java": ">=17",
+    "fabric-api": "*"
+  }
+}
