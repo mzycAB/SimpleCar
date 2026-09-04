@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 # SimpleCar
 
-一个 Minecraft **Fabric 1.20.4** 模组，添加可驾驶的小汽车（类似可骑乘生物）。
+一个 Minecraft Fabric 1.20.4 模组，添加可驾驶的小汽车（类似可骑乘生物）。 /carspeed X 指令更改汽车速度（格/秒），按下ctrl键滚动鼠标滚轮可以调整汽车速度
 
 ## 功能
 
