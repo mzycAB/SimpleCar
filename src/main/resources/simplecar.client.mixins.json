@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "simple.car.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "MouseScrollCarSpeedMixin",
+    "InGameHudMixin"
+  ]
+}

@@ -1,9 +1,5 @@
 plugins {
-<<<<<<< HEAD
     id 'fabric-loom' version '1.9.2'
-=======
-    id 'fabric-loom' version '1.7.4'
->>>>>>> dbe8f2a0df6a71b3267215c92f0af1f2a0127867
     id 'java'
 }
 

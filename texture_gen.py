@@ -5,9 +5,111 @@ import zlib
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "src", "main", "resources", "assets", "simplecar")
 
-RED = (183, 28, 28, 255)
-RED_DARK = (127, 13, 13, 255)
-RED_LIGHT = (229, 57, 53, 255)
+# Color themes: one entry per Minecraft concrete color.
+# "red" keeps the original palette and file name; every other theme only
+# replaces the red body colors with the concrete color, everything else stays.
+THEMES = {
+    "red": {
+        "name": "car",
+        "RED": (183, 28, 28, 255),
+        "RED_DARK": (127, 13, 13, 255),
+        "RED_LIGHT": (229, 57, 53, 255),
+    },
+    "white": {
+        "name": "car_white",
+        "RED": (245, 245, 245, 255),
+        "RED_DARK": (198, 202, 208, 255),
+        "RED_LIGHT": (255, 255, 255, 255),
+    },
+    "gray": {
+        "name": "car_gray",
+        "RED": (158, 158, 158, 255),
+        "RED_DARK": (105, 105, 105, 255),
+        "RED_LIGHT": (189, 189, 189, 255),
+    },
+    "black": {
+        "name": "car_black",
+        "RED": (8, 10, 15, 255),
+        "RED_DARK": (4, 5, 8, 255),
+        "RED_LIGHT": (94, 96, 99, 255),
+    },
+    "blue": {
+        "name": "car_blue",
+        "RED": (45, 47, 143, 255),
+        "RED_DARK": (25, 26, 79, 255),
+        "RED_LIGHT": (119, 120, 182, 255),
+    },
+    "brown": {
+        "name": "car_brown",
+        "RED": (96, 60, 32, 255),
+        "RED_DARK": (53, 33, 18, 255),
+        "RED_LIGHT": (152, 128, 110, 255),
+    },
+    "cyan": {
+        "name": "car_cyan",
+        "RED": (21, 119, 136, 255),
+        "RED_DARK": (12, 65, 75, 255),
+        "RED_LIGHT": (103, 167, 178, 255),
+    },
+    "green": {
+        "name": "car_green",
+        "RED": (73, 91, 36, 255),
+        "RED_DARK": (40, 50, 20, 255),
+        "RED_LIGHT": (137, 148, 113, 255),
+    },
+    "light_blue": {
+        "name": "car_light_blue",
+        "RED": (36, 137, 199, 255),
+        "RED_DARK": (20, 75, 109, 255),
+        "RED_LIGHT": (113, 178, 219, 255),
+    },
+    "light_gray": {
+        "name": "car_light_gray",
+        "RED": (125, 125, 115, 255),
+        "RED_DARK": (69, 69, 63, 255),
+        "RED_LIGHT": (170, 170, 164, 255),
+    },
+    "lime": {
+        "name": "car_lime",
+        "RED": (94, 169, 24, 255),
+        "RED_DARK": (52, 93, 13, 255),
+        "RED_LIGHT": (150, 199, 105, 255),
+    },
+    "magenta": {
+        "name": "car_magenta",
+        "RED": (169, 48, 159, 255),
+        "RED_DARK": (93, 26, 87, 255),
+        "RED_LIGHT": (199, 121, 193, 255),
+    },
+    "orange": {
+        "name": "car_orange",
+        "RED": (224, 97, 1, 255),
+        "RED_DARK": (123, 53, 1, 255),
+        "RED_LIGHT": (235, 152, 90, 255),
+    },
+    "pink": {
+        "name": "car_pink",
+        "RED": (214, 101, 143, 255),
+        "RED_DARK": (118, 56, 79, 255),
+        "RED_LIGHT": (228, 155, 182, 255),
+    },
+    "purple": {
+        "name": "car_purple",
+        "RED": (100, 32, 156, 255),
+        "RED_DARK": (55, 18, 86, 255),
+        "RED_LIGHT": (154, 110, 191, 255),
+    },
+    "yellow": {
+        "name": "car_yellow",
+        "RED": (241, 175, 21, 255),
+        "RED_DARK": (133, 96, 12, 255),
+        "RED_LIGHT": (246, 203, 103, 255),
+    },
+}
+
+RED = THEMES["red"]["RED"]
+RED_DARK = THEMES["red"]["RED_DARK"]
+RED_LIGHT = THEMES["red"]["RED_LIGHT"]
 BLACK = (20, 20, 20, 255)
 DARKGRAY = (55, 58, 62, 255)
 GRAY = (120, 124, 130, 255)
@@ -84,7 +186,10 @@ def glass_with_shine(cv, rect):
                 cv.pixel(x, y, GLASS_LIGHT)
 
 
-def make_entity_texture():
+def make_entity_texture(theme):
+    RED = theme["RED"]
+    RED_DARK = theme["RED_DARK"]
+    RED_LIGHT = theme["RED_LIGHT"]
     cv = Canvas(128, 128)
 
     # ---- chassis: 24w x 8h x 36d at uv(0,0) ----
@@ -209,7 +314,7 @@ def make_entity_texture():
         cv.rect(*light["east"], GRAY)
         cv.rect(*light["south"], GRAY)
 
-    cv.save(os.path.join(OUT, "textures", "entity", "car.png"))
+    cv.save(os.path.join(OUT, "textures", "entity", theme["name"] + ".png"))
 
 
 def draw_car_side(cv, ox, oy, s):
@@ -257,6 +362,28 @@ def draw_car_side(cv, ox, oy, s):
         d(cx, 23, 0.8, HUB_DARK)
 
 
+def make_remover_item_texture():
+    cv = Canvas(16, 16)
+    # dark slate backdrop
+    cv.rect(1, 1, 15, 15, (36, 38, 42, 255))
+    cv.rect(1, 1, 15, 2, (70, 73, 80, 255))
+    # simple car silhouette
+    cv.rect(3, 5, 13, 11, (158, 162, 168, 255))
+    cv.rect(3, 5, 13, 6, (210, 213, 219, 255))
+    cv.rect(5, 2, 11, 5, (120, 124, 130, 255))
+    cv.rect(6, 3, 8, 5, GLASS_LIGHT)
+    cv.rect(8, 3, 10, 5, GLASS_LIGHT)
+    cv.disc(4, 11, 2.2, TIRE)
+    cv.disc(12, 11, 2.2, TIRE)
+    # red diagonal remove slash
+    for i in range(8):
+        y = 4 + i
+        for dx in (-1, 0, 1):
+            cv.pixel(12 + dx, y, (210, 40, 40, 255))
+            cv.pixel(7 + dx, y, (210, 40, 40, 255))
+    cv.save(os.path.join(OUT, "textures", "item", "car_remover.png"))
+
+
 def make_icon():
     small = Canvas(32, 32)
     draw_car_side(small, 0, 0, 1)
@@ -267,7 +394,10 @@ def make_icon():
     big.save(os.path.join(OUT, "icon.png"))
 
 
-def make_item_texture():
+def make_item_texture(theme):
+    RED = theme["RED"]
+    RED_DARK = theme["RED_DARK"]
+    RED_LIGHT = theme["RED_LIGHT"]
     cv = Canvas(16, 16)
 
     # ground shadow
@@ -299,10 +429,12 @@ def make_item_texture():
         cv.disc(cx, 11, 1.0, HUB)
         cv.pixel(cx, 11, HUB_DARK)
 
-    cv.save(os.path.join(OUT, "textures", "item", "car.png"))
+    cv.save(os.path.join(OUT, "textures", "item", theme["name"] + ".png"))
 
 
 if __name__ == "__main__":
-    make_entity_texture()
+    for key in THEMES:
+        make_entity_texture(THEMES[key])
+        make_item_texture(THEMES[key])
+    make_remover_item_texture()
     make_icon()
-    make_item_texture()

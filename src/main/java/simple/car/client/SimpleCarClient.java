@@ -16,6 +16,10 @@ public class SimpleCarClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         EntityRendererRegistry.register(SimpleCar.CAR_ENTITY, CarEntityRenderer::new);
+        EntityRendererRegistry.register(SimpleCar.CAR_WHITE_ENTITY, CarEntityRenderer::new);
+        EntityRendererRegistry.register(SimpleCar.CAR_GRAY_ENTITY, CarEntityRenderer::new);
+        SimpleCar.CAR_COLOR_ENTITIES.values().forEach(type ->
+                EntityRendererRegistry.register(type, CarEntityRenderer::new));
         EntityModelLayerRegistry.registerModelLayer(CAR_MODEL_LAYER, CarEntityModel::getTexturedModelData);
     }
 }
